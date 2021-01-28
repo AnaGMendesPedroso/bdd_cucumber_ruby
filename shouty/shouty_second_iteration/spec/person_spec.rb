@@ -1,21 +1,21 @@
 require 'spec_helper'
 require './lib/shouty'
 
-RSpec.describe ShoutySecondIteration::Network do
+RSpec.describe Shouty::Network do
 
   before(:each) do
-    @networkStub = spy(ShoutySecondIteration::Network)
+    @networkStub = spy(Shouty::Network)
   end
 
   it 'subscribes to the network' do
-    lucy = ShoutySecondIteration::Person.new(@networkStub, 0)
+    lucy = Shouty::Person.new(@networkStub, 0)
 
     expect(@networkStub).to have_received(:subscribe).with(lucy)
   end
 
   it 'has a location' do
     location = 42
-    lucy = ShoutySecondIteration::Person.new(@networkStub, location)
+    lucy = Shouty::Person.new(@networkStub, location)
 
     expect(lucy.location).to eql(location)
   end
@@ -23,7 +23,7 @@ RSpec.describe ShoutySecondIteration::Network do
   it 'broadcasts shouts to the network' do
     location = 0
     message = 'Free bagels!'
-    sean = ShoutySecondIteration::Person.new(@networkStub, location)
+    sean = Shouty::Person.new(@networkStub, location)
 
     sean.shout(message)
 
@@ -32,7 +32,7 @@ RSpec.describe ShoutySecondIteration::Network do
 
   it 'remembers messages heard' do
     message = 'Free bagels!'
-    lucy = ShoutySecondIteration::Person.new(@networkStub, 0)
+    lucy = Shouty::Person.new(@networkStub, 0)
 
     lucy.hear(message)
 

@@ -1,14 +1,14 @@
 require 'spec_helper'
-require './lib/shouty_second_iteration'
+require './lib/shouty'
 
-RSpec.describe ShoutySecondIteration::Network do
+RSpec.describe Shouty::Network do
   let(:range)   { 100 }
-  let(:network) { ShoutySecondIteration::Network.new(range) }
+  let(:network) { Shouty::Network.new(range) }
   let(:message) { 'Free bagels!' }
 
   it 'broadcasts a message to a listener within range' do
     sean_location = 0
-    lucy = spy(ShoutySecondIteration::Person)
+    lucy = spy(Shouty::Person)
     network.subscribe(lucy)
     network.broadcast(message, sean_location)
 
@@ -17,7 +17,7 @@ RSpec.describe ShoutySecondIteration::Network do
 
   it 'does not broadcast a message to a listener out of range' do
     sean_location = 0
-    laura = spy(ShoutySecondIteration::Person, location: 101)
+    laura = spy(Shouty::Person, location: 101)
     network.subscribe(laura)
     network.broadcast(message, sean_location)
 
@@ -26,7 +26,7 @@ RSpec.describe ShoutySecondIteration::Network do
 
   it 'does not broadcast a message to a listener out of range negative distance' do
     sally_location = 0
-    lionel = spy(ShoutySecondIteration::Person, location: -101)
+    lionel = spy(Shouty::Person, location: -101)
     network.subscribe(lionel)
     network.broadcast(message, sally_location)
 

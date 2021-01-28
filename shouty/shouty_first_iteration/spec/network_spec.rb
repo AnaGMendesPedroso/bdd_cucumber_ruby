@@ -1,12 +1,12 @@
 require 'spec_helper'
-require './lib/shouty_first_iteration'
+require './lib/shouty'
 
-RSpec.describe ShoutyFirstIteration::Network do
-  let(:network) { ShoutyFirstIteration::Network.new }
+RSpec.describe Shouty::Network do
+  let(:network) { Shouty::Network.new }
   let(:message) { 'Free bagels!' }
 
   it 'broadcasts a message to all listeners' do
-    lucy = spy(ShoutyFirstIteration::Person.new('Lucy', network))
+    lucy = spy(Shouty::Person.new('Lucy', network))
     network.subscribe(lucy)
     network.broadcast(message)
 

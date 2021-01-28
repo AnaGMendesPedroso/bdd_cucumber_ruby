@@ -1,20 +1,20 @@
 require 'spec_helper'
-require './lib/shouty_first_iteration'
+require './lib/shouty'
 
-RSpec.describe ShoutyFirstIteration::Network do
+RSpec.describe Shouty::Network do
   before(:each) do
-    @network_stub = spy(ShoutyFirstIteration::Network)
+    @network_stub = spy(Shouty::Network)
   end
 
   it 'subscribes to the network' do
-    lucy = ShoutyFirstIteration::Person.new('Lucy', @network_stub)
+    lucy = Shouty::Person.new('Lucy', @network_stub)
 
     expect(@network_stub).to have_received(:subscribe).with(lucy)
   end
 
   it 'broadcasts shouts to the network' do
     message = 'Free bagels!'
-    sean = ShoutyFirstIteration::Person.new('Sean', @network_stub)
+    sean = Shouty::Person.new('Sean', @network_stub)
 
     sean.shout(message)
 
@@ -23,7 +23,7 @@ RSpec.describe ShoutyFirstIteration::Network do
 
   it 'remembers messages heard' do
     message = 'Free bagels!'
-    lucy = ShoutyFirstIteration::Person.new('Lucy', @network_stub)
+    lucy = Shouty::Person.new('Lucy', @network_stub)
 
     lucy.hear(message)
 

@@ -1,7 +1,7 @@
-require 'shouty'
+require 'shouty_first_iteration'
 
 Before do
-  $network = Shouty::Network.new
+  $network = ShoutyFirstIteration::Network.new
   @people = {}
 end
 

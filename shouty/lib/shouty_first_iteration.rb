@@ -1,4 +1,4 @@
-module Shouty
+module ShoutyFirstIteration
     class Person
         attr_reader :name, :messages_heard, :network
         

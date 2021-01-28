@@ -13,10 +13,6 @@ Feature: Hear shout
             When Sean shouts "free bagels at Sean's"
             Then Lucy should hear Sean's message
 
-        Scenario: Listener hears a different mesage
-            When Sean shouts "Free coffee!"
-            Then Lucy should hear Sean's message
-
         Scenario: Listener hears two differents messages
             When Sean shouts "Free coffee!" and "And tomatos!"
             Then Lucy should hear Sean's messages

@@ -1,7 +1,7 @@
-require "shouty"
+require "shouty_first_iteration"
 
 ParameterType(
 name: 'person',
 regexp: /(\w+)/,
-transformer: ->(name) { Shouty::Person.new(name, $network) }
+transformer: ->(name) { ShoutyFirstIteration::Person.new(name, $network) }
 )

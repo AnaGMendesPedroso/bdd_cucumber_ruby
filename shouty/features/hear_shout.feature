@@ -1,16 +1,28 @@
 Feature: Hear shout
+    Shouty allows users to "hear" other users "shouts" as long as they are close enough to each other.
 
-    Scenario: Listener is within range
-    Given Lucy is located 15m from Sean
-    When Sean shouts "free bagels at Sean's"
-    Then Lucy hears Sean's message
+    To do:
+        - only shout to people within a certain distance
 
-    Scenario: Listener hears a different message
-    Given Lucy is located 15m from Sean
-    When Sean shouts "Free coffee!"
-    Then Lucy hears Sean's message
+    Background: Persons
+        Given a person named Lucy
+        And a person named Sean
 
-    Scenario: Listener hears two differents messages
-    Given Lucy is located 15m from Sean
-    When Sean shouts "Free coffee!" and "And tomatos!"
-    Then Lucy hears Sean's messages
+    Rule: Shouts can be heard by other users
+        Scenario: Listener hears a message
+            When Sean shouts "free bagels at Sean's"
+            Then Lucy should hear Sean's message
+
+        Scenario: Listener hears a different mesage
+            When Sean shouts "Free coffee!"
+            Then Lucy should hear Sean's message
+
+        Scenario: Listener hears two differents messages
+            When Sean shouts "Free coffee!" and "And tomatos!"
+            Then Lucy should hear Sean's messages
+
+    Rule: Shouts should only be heard if listener is within range
+
+        Scenario: Listener is within range
+
+        Scenario: Listener is out of range

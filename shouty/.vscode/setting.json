@@ -1,0 +1,10 @@
+{
+    "terminal.integrated.shell": "/bin/zsh",
+    "editor.renderWhitespace": "boundary",
+    "editor.tabSize": 2,
+    "cucumberautocomplete.steps": [
+      "features/step_definitions/*.rb"
+    ],
+    "cucumberautocomplete.syncfeatures": "features/*feature",
+    "cucumberautocomplete.strictGherkinCompletion": true
+ }

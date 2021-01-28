@@ -1,31 +1,44 @@
-require "shouty"
+require 'shouty'
 
-Given('{person} is located {int}m from Sean') do |person, distance|
-  @sean = Shouty::Person.new('Sean')
-  @person = person
-  @person.move_to(distance)
+Before do
+  $network = Shouty::Network.new
+  @people = {}
 end
 
-When('Sean shouts {string}') do |message|
-  @sean.shout(message)
-  @message_from_sean = message
-  @person.messages_heard_from(message)
+Given('a person named {person}') do |person|
+  @people[person.name] = person
 end
 
-When('Sean shouts {string} and {string}') do |message_one, message_two|
-  @sean.shout(message_one)
-  @first_message_from_sean = message_one
-  @person.messages_heard_from(message_one)
-
-  @sean.shout(message_two)
-  @secound_message_from_sean = message_two
-  @person.messages_heard_from(message_two)
+Given('{person} is {int} metre(s) from Sean') do |person, distance|
+  @people[person.name].move_to(distance)
 end
 
-Then("{person} hears Sean's message") do |person|
-  expect(@person.messages_heard).to include @message_from_sean
+When('{person} shouts {string}') do |person, message|
+  @people[person.name].shout(message)
+  @message_shouted = message
+  @people.each do |person_at_hash|
+    person_at_hash.last.hear(message) if person_at_hash.last.name != person.name
+  end
 end
 
-Then("{person} hears Sean's messages") do |person|
-  expect(@person.messages_heard).to include @first_message_from_sean, @secound_message_from_sean
+When('{person} shouts {string} and {string}') do |person, message_one, message_two|
+  @people[person.name].shout(message_one)
+  @first_message_shouted = message_one
+  @people.each do |person_at_hash|
+    person_at_hash.last.hear(message_one) if person_at_hash.last.name != person.name
+  end
+
+  @people[person.name].shout(message_two)
+  @secound_message_shouted = message_two
+  @people.each do |person_at_hash|
+    person_at_hash.last.hear(message_two) if person_at_hash.last.name != person.name
+  end
+end
+
+Then("{person} should hear {person}'s message") do |listener, shouter|
+  expect(@people[listener.name].messages_heard).to include @message_shouted
+end
+
+Then("{person} should hear {person}'s messages") do |listener, shouter|
+  expect(@people[listener.name].messages_heard).to include @first_message_shouted, @secound_message_shouted
 end

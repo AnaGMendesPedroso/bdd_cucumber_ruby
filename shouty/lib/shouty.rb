@@ -1,24 +1,37 @@
 module Shouty
     class Person
-        attr_accessor :name, :messages_heard, :distance, :message_shout
-
-        def initialize(name, messages_heard = [], distance = 0, message_shout = [])
-            @name = name
-            @messages_heard = messages_heard
-            @message_shout = message_shout
-            @distance = distance
+        attr_reader :name, :messages_heard, :network
+        
+        def initialize(name, network)
+          @name = name
+          @messages_heard = []
+          @network = network
+          
+          @network.subscribe(self)
         end
-
-        def move_to(distance)
-            @distance = distance
-        end
-
+    
         def shout(message)
-            @message_shout = message
+          @network.broadcast(message)
         end
+    
+        def hear(message)
+          @messages_heard << message
+        end
+    end
 
-        def messages_heard_from(message)
-            @messages_heard.push(message)
+    class Network
+        def initialize
+          @listeners = []
+        end
+    
+        def subscribe(person)
+          @listeners << person
+        end
+    
+        def broadcast(message)
+          @listeners.each do |listener|
+            listener.hear(message)
+          end
         end
     end
 end

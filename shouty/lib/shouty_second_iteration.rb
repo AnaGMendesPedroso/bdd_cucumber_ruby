@@ -1,6 +1,6 @@
 module ShoutySecondIteration
     class Person
-      attr_reader :messages_heard, :location
+      attr_reader :name, :messages_heard, :location
   
       def initialize(network, location)
         @messages_heard = []

@@ -30,9 +30,24 @@ Feature: Hear shout
         Scenario: Two shouts
             Given a beautifull person named Sean
             And a beautifull person named Lucy
-            When Sean shouts louder "Free pão de queijo!"
+            And Sean shouts louder "Free pão de queijo!"
             And Sean shouts louder "Free coffee!"
             Then Lucy hears the following messages:
                 |Free pão de queijo!|
                 |Free coffee!       |
 
+    Rule: Maximum length of message is 180 characteres
+        Scenario: Message is too long
+            Given a beautifull person named Sean
+            And a beautifull person named Lucy
+            #When Sean shouts louder "6326866994988962438559242952737358945545933729952797621815178714697241643915899179731812418288548353326617197194166157288116961786927678387986483997726536222291793551388987526825587"
+            When Sean shouts the following message
+            """
+            Lorem ipsum aenean phasellus sociosqu lobortis quis 
+            pretium conubia faucibus per vel sapien tristique, 
+            aenean eu hendrerit integer tempor at accumsan elit 
+            nam amet lorem. est ut etiam quisque interdum dictum 
+            rhoncus eleifend, sociosqu posuere rhoncus magna elementum 
+            vehicula lacus, accumsan auctor varius egestas sollicitudin adipiscing.
+            """
+            Then Lucy should not hear a shout
